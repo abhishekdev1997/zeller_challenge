@@ -3,28 +3,40 @@ import Components from "../../components";
 import UserType from "./UserType";
 import UserList from "./UserList";
 import { Divider } from 'react-native-paper';
+import { colorVariables, strings } from "../../utils";
 
 const UserListScreen = () => {
     return (
         <View style={styles.container}>
-            <Components.Heading1 title="This is title" />
-            <View style={{ marginLeft: "4%" }}>
+            <View style={styles.user_type}>
+                <Components.Heading1 title={strings.UserType} />
                 <UserType />
             </View>
-            <Divider style={{ width: "80%" }} />
-            <Components.Heading1 title="This is title" />
-            <View style={{ marginLeft: "4%" }}>
+            <Divider style={styles.divider} />
+            <View style={styles.user_list}>
+                <Components.Heading1 title={strings.AdminUsers} />
                 <UserList />
             </View>
-            <Divider style={{ width: "80%" }} />
+            <Divider style={styles.divider} />
         </View>)
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: colorVariables.white,
+    },
+    user_type: {
         marginLeft: "10%",
-        marginTop: "4%"
+        marginTop: "4%",
+    },
+    user_list: {
+        marginLeft: "10%",
+        marginTop: "4%",
+    },
+    divider: {
+        width: "80%",
+        margin: "4%"
     }
 })
 
