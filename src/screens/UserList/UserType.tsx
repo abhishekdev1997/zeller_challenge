@@ -1,25 +1,18 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { View } from 'react-native';
 import Components from '../../components';
 import { UserTypeProps } from '../../types';
+import { USER_TYPES } from './UserTypeArray';
 
-const UserType = () => {
-    const [userType, updateUserType] = useState<UserTypeProps["list"]>([
-        {
-            id: 0,
-            type: "manager",
-            label: "Manager",
-            selected: false
-        },
-        {
-            id: 1,
-            type: "admin",
-            label: "Admin",
-            selected: true
-        }
-    ])
+type UserTypeMethodProps = {
+    changeSelectedType: Dispatch<SetStateAction<number>>
+}
+
+const UserType = (props: UserTypeMethodProps) => {
+    const [userType, updateUserType] = useState<UserTypeProps["list"]>(USER_TYPES)
 
     const updateSelected = (id: number) => {
+        props.changeSelectedType(id)
         updateUserType(prevVal => {
             let updatedUserType = prevVal.map(userType => {
                 if (userType.id === id) {

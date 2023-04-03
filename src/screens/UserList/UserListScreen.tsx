@@ -7,8 +7,10 @@ import { colorVariables, strings } from "../../utils";
 import { useQuery, gql } from "@apollo/client";
 import { useEffect, useState } from "react";
 import * as Queries from "../../graphql/listCustomersQuery";
+import { getUserTypeById } from "./UserTypeArray";
 
 const UserListScreen = () => {
+    const [selectedType, changeSelectedType] = useState(0)
     const [customerList, updateCustomerList] = useState([])
     const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY)
     useEffect(() => {
@@ -17,16 +19,18 @@ const UserListScreen = () => {
             updateCustomerList(data.listZellerCustomers.items)
         }
     })
+
+    useEffect(() => { console.log("selectedType", selectedType) }, [selectedType])
     return (
         <View style={styles.container}>
             <View style={styles.user_type}>
                 <Components.Heading1 title={strings.UserType} />
-                <UserType />
+                <UserType changeSelectedType={changeSelectedType} />
             </View>
             <Divider style={styles.divider} />
             <View style={styles.user_list}>
-                <Components.Heading1 title={strings.AdminUsers} />
-                {customerList.length > 0 ? <UserList list={customerList} /> : null}
+                <Components.Heading1 title={getUserTypeById(selectedType)?.label + " " + strings.Users} />
+                {customerList.length > 0 ? <UserList list={customerList} selectedType={selectedType} /> : null}
             </View>
             <Divider style={styles.divider} />
         </View>)
