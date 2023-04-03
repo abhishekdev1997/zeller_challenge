@@ -3,22 +3,28 @@ import Name from "./Name";
 import { RadioButton } from 'react-native-paper';
 import { List, Avatar } from 'react-native-paper';
 import { colorVariables } from "../utils";
-import { CustomerListProps } from "../types";
+import { CustomerListProps, UserTypeProps } from "../types";
 
+interface UserTypePropsExtended extends UserTypeProps {
+    updateSelected: (id: number) => void
+}
 
-const RadioButtonList = (props: CustomerListProps) => {
+const RadioButtonList = (props: UserTypePropsExtended) => {
+    const { updateSelected } = props
     return (
         <View>
             {
-                props.list.map((user) => {
+                props.list.map((type) => {
                     return (
                         <List.Item
-                            key={user.id}
-                            title={props => <Name name={user.name} />}
+                            key={type.id}
+                            title={props => <Name name={type.label} />}
                             left={props => <RadioButton
+                                status={type.selected ? "checked" : "unchecked"}
                                 uncheckedColor={colorVariables.grey}
                                 color={colorVariables.blue}
-                                value={user.id}
+                                value={type.type}
+                                onPress={() => updateSelected(type.id)}
                             />}
                         />
                     )

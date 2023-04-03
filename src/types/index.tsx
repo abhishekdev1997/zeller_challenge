@@ -7,4 +7,13 @@ type CustomerListProps = {
     }[]
 }
 
-export type { CustomerListProps }
+type UserTypeProps = {
+    list: {
+        id: number,
+        type: string,
+        label: string,
+        selected: boolean
+    }[]
+}
+
+export type { CustomerListProps, UserTypeProps }
