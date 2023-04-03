@@ -1,19 +1,13 @@
 import { View } from 'react-native';
 import Components from '../../components';
+import { CustomerListProps } from '../../types';
 
-let users = [
-    {
-        id: "12",
-        name: "abhishek",
-        email: "aps@gmail.com",
-        role: "manager"
-    }
-]
 
-const UserList = () => {
+const UserList = (props: CustomerListProps) => {
+    const { list } = props;
     return (
         <View>
-            <Components.AvatarList list={users} />
+            <Components.AvatarList list={list} />
         </View>
     )
 }

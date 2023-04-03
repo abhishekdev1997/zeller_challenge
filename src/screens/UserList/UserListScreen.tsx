@@ -5,22 +5,17 @@ import UserList from "./UserList";
 import { Divider } from 'react-native-paper';
 import { colorVariables, strings } from "../../utils";
 import { useQuery, gql } from "@apollo/client";
-import { useEffect } from "react";
-
-const ZELLER_USER_QUERY = gql`
-query Items {
-    listZellerCustomers {
-      items {
-        id,
-        name
-      }
-    }
-  }`
+import { useEffect, useState } from "react";
+import * as Queries from "../../graphql/listCustomersQuery";
 
 const UserListScreen = () => {
-    const { data, loading, error } = useQuery(ZELLER_USER_QUERY)
+    const [customerList, updateCustomerList] = useState([])
+    const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY)
     useEffect(() => {
-        console.log("graphqldata", data, loading, error)
+        console.log("graphqldata", data, error)
+        if (!loading) {
+            updateCustomerList(data.listZellerCustomers.items)
+        }
     })
     return (
         <View style={styles.container}>
@@ -31,7 +26,7 @@ const UserListScreen = () => {
             <Divider style={styles.divider} />
             <View style={styles.user_list}>
                 <Components.Heading1 title={strings.AdminUsers} />
-                <UserList />
+                {customerList.length > 0 ? <UserList list={customerList} /> : null}
             </View>
             <Divider style={styles.divider} />
         </View>)
