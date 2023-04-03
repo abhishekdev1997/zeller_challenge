@@ -4,8 +4,24 @@ import UserType from "./UserType";
 import UserList from "./UserList";
 import { Divider } from 'react-native-paper';
 import { colorVariables, strings } from "../../utils";
+import { useQuery, gql } from "@apollo/client";
+import { useEffect } from "react";
+
+const ZELLER_USER_QUERY = gql`
+query Items {
+    listZellerCustomers {
+      items {
+        id,
+        name
+      }
+    }
+  }`
 
 const UserListScreen = () => {
+    const { data, loading, error } = useQuery(ZELLER_USER_QUERY)
+    useEffect(() => {
+        console.log("graphqldata", data, loading, error)
+    })
     return (
         <View style={styles.container}>
             <View style={styles.user_type}>
