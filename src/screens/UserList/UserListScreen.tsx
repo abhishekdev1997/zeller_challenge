@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Components from "../../components";
 import UserType from "./UserType";
 import UserList from "./UserList";
 import { Divider } from 'react-native-paper';
 import { colorVariables, strings } from "../../utils";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery} from "@apollo/client";
 import { useEffect, useState } from "react";
 import * as Queries from "../../graphql/listCustomersQuery";
 import { getUserTypeById } from "./UserTypeArray";
@@ -13,9 +13,10 @@ const UserListScreen = () => {
     const [selectedType, changeSelectedType] = useState(0)
     const [customerList, updateCustomerList] = useState([])
     const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY)
+
     useEffect(() => {
         console.log("graphqldata", data, error)
-        if (!loading) {
+        if (!loading&&data?.listCustomersQuery?.items) {
             updateCustomerList(data.listZellerCustomers.items)
         }
     })
