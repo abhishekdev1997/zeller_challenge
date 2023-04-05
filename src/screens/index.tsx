@@ -1,7 +1,9 @@
 import UserList from "./UserList";
+import Home from "./Home";
 
 const screens = {
-    UserList
+    UserList,
+    Home
 }
 
 export default screens;

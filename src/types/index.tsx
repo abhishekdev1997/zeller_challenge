@@ -1,3 +1,8 @@
+type RootStackParamList = {
+    UserListScreen: undefined,
+    HomeScreen: undefined
+}
+
 type CustomerListProps = {
     list: {
         id: string,
@@ -16,4 +21,4 @@ type UserTypeProps = {
     }[]
 }
 
-export type { CustomerListProps, UserTypeProps }
+export type { RootStackParamList, CustomerListProps, UserTypeProps }

@@ -10,6 +10,10 @@ interface UserTypePropsExtended extends UserTypeProps {
     updateSelected: (id: number) => void
 }
 
+interface CustomerListPropsExtended extends CustomerListProps {
+    onItemClick: () => void
+}
+
 
 const RadioButtonList = (props: UserTypePropsExtended) => {
     const { updateSelected } = props
@@ -36,8 +40,7 @@ const RadioButtonList = (props: UserTypePropsExtended) => {
     )
 }
 
-const AvatarList = (props: CustomerListProps) => {
-
+const AvatarList = (props: CustomerListPropsExtended) => {
 
     const renderList: ListRenderItem<CustomerListProps["list"][0]> = (item) => {
         return (
@@ -46,6 +49,7 @@ const AvatarList = (props: CustomerListProps) => {
                 title={props => <Name name={item.item.name} />}
                 description={item.item.role}
                 left={props => <Avatar.Text size={32} label={getNameInitial(item.item.name)} labelStyle={{ color: colorVariables.blue }} style={{ borderRadius: 5, backgroundColor: colorVariables.light_blue, alignSelf: "center" }} />}
+                onPress={() => props.onItemClick()}
             />
         )
     }

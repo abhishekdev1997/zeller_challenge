@@ -5,16 +5,17 @@ import { getUserTypeById } from './UserTypeArray';
 
 interface CustomerListPropsExtends extends CustomerListProps {
     selectedType: number,
-    containerStyle: ViewStyle
+    containerStyle: ViewStyle,
+    onUserClick: ()=>void
 }
 
 const UserList = (props: CustomerListPropsExtends) => {
-    const { list, selectedType } = props;
+    const { list, selectedType, onUserClick } = props;
 
     let filteredList = list.filter(user => user.role === getUserTypeById(selectedType)?.label)
     return (
         <View style={props.containerStyle}>
-            <Components.AvatarList list={filteredList} />
+            <Components.AvatarList list={filteredList} onItemClick={onUserClick}/>
         </View>
     )
 }

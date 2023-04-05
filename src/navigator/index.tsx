@@ -1,14 +1,24 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, CommonActions } from '@react-navigation/native';
 import screens from '../screens';
-const Stack = createStackNavigator();
+import { RootStackParamList } from '../types';
+
+const Stack = createStackNavigator<RootStackParamList>();
+
 function Navigator() {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName='UserList'>
+            <Stack.Navigator initialRouteName='UserListScreen'>
                 <Stack.Screen
-                    name="UserList"
+                    name="UserListScreen"
                     component={screens.UserList.UserListScreen}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="HomeScreen"
+                    component={screens.Home.HomeScreen}
                     options={{
                         headerShown: false,
                     }}

@@ -8,8 +8,16 @@ import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import * as Queries from "../../graphql/listCustomersQuery";
 import { getUserTypeById } from "./UserTypeArray";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../types";
 
-const UserListScreen = () => {
+type UserListNavigationProp = StackNavigationProp<RootStackParamList>
+
+type Props = {
+    navigation: UserListNavigationProp
+}
+
+const UserListScreen = ({ navigation }: Props) => {
     const [selectedType, changeSelectedType] = useState(0)
     const [customerList, updateCustomerList] = useState([])
     const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY)
@@ -22,6 +30,11 @@ const UserListScreen = () => {
     })
 
     useEffect(() => { console.log("selectedType", selectedType) }, [selectedType])
+
+    const onUserClick = () => {
+        navigation.navigate("HomeScreen")
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.user_type}>
@@ -31,7 +44,7 @@ const UserListScreen = () => {
             <Divider style={styles.divider} />
             <View style={styles.user_list}>
                 <Components.Heading1 title={getUserTypeById(selectedType)?.label + " " + strings.Users} />
-                {customerList.length > 0 ? <UserList containerStyle={styles.user_list_view} list={customerList} selectedType={selectedType} /> : null}
+                {customerList.length > 0 ? <UserList containerStyle={styles.user_list_view} list={customerList} selectedType={selectedType} onUserClick={onUserClick} /> : null}
             </View>
             <Divider style={styles.divider} />
         </View>)
