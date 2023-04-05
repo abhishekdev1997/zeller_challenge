@@ -3,13 +3,13 @@ export const USER_TYPES = [
         id: 0,
         type: "manager",
         label: "Manager",
-        selected: false
+        selected: true
     },
     {
         id: 1,
         type: "admin",
         label: "Admin",
-        selected: true
+        selected: false
     }
 ]
 
