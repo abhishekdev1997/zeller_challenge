@@ -5,7 +5,7 @@ type HeadingProps = {
 }
 const Heading1 = ({ title }: HeadingProps) => {
     return (
-        <Text style={{ fontWeight: "bold" }} variant="titleLarge">{title}</Text>
+        <Text style={{ fontWeight: "700" }} variant="titleLarge">{title}</Text>
     )
 }
 

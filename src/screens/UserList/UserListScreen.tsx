@@ -4,7 +4,7 @@ import UserType from "./UserType";
 import UserList from "./UserList";
 import { Divider } from 'react-native-paper';
 import { colorVariables, strings } from "../../utils";
-import { useQuery} from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import * as Queries from "../../graphql/listCustomersQuery";
 import { getUserTypeById } from "./UserTypeArray";
@@ -16,7 +16,7 @@ const UserListScreen = () => {
 
     useEffect(() => {
         console.log("graphqldata", data, error)
-        if (!loading&&data?.listCustomersQuery?.items) {
+        if (!loading && data.listZellerCustomers) {
             updateCustomerList(data.listZellerCustomers.items)
         }
     })
@@ -26,12 +26,12 @@ const UserListScreen = () => {
         <View style={styles.container}>
             <View style={styles.user_type}>
                 <Components.Heading1 title={strings.UserType} />
-                <UserType changeSelectedType={changeSelectedType} />
+                <UserType containerStyle={styles.user_type_view} changeSelectedType={changeSelectedType} />
             </View>
             <Divider style={styles.divider} />
             <View style={styles.user_list}>
                 <Components.Heading1 title={getUserTypeById(selectedType)?.label + " " + strings.Users} />
-                {customerList.length > 0 ? <UserList list={customerList} selectedType={selectedType} /> : null}
+                {customerList.length > 0 ? <UserList containerStyle={styles.user_list_view} list={customerList} selectedType={selectedType} /> : null}
             </View>
             <Divider style={styles.divider} />
         </View>)
@@ -44,15 +44,22 @@ const styles = StyleSheet.create({
     },
     user_type: {
         marginLeft: "10%",
-        marginTop: "4%",
+        marginTop: "10%",
+    },
+    user_type_view: {
+        marginTop: "4%"
     },
     user_list: {
         marginLeft: "10%",
-        marginTop: "4%",
+        marginTop: "10%",
+    },
+    user_list_view: {
+        marginTop: "4%"
     },
     divider: {
         width: "80%",
-        margin: "4%"
+        marginTop: "8%",
+        alignSelf: "center"
     }
 })
 

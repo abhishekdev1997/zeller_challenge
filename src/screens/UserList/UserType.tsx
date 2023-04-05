@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { View } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import Components from '../../components';
 import { UserTypeProps } from '../../types';
 import { USER_TYPES } from './UserTypeArray';
 
 type UserTypeMethodProps = {
-    changeSelectedType: Dispatch<SetStateAction<number>>
+    changeSelectedType: Dispatch<SetStateAction<number>>,
+    containerStyle: ViewStyle
 }
 
 const UserType = (props: UserTypeMethodProps) => {
@@ -27,7 +28,7 @@ const UserType = (props: UserTypeMethodProps) => {
     }
 
     return (
-        <View>
+        <View style={props.containerStyle}>
             <Components.RadioButtonList list={userType} updateSelected={updateSelected} />
         </View>
     )

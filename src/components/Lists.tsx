@@ -43,7 +43,8 @@ const AvatarList = (props: CustomerListProps) => {
                         <List.Item
                             key={user.id}
                             title={props => <Name name={user.name} />}
-                            left={props => <Avatar.Text size={30} label="XD" style={{ borderRadius: 5, backgroundColor: colorVariables.blue }} />}
+                            description={user.role}
+                            left={props => <Avatar.Text size={32} label="XD" labelStyle={{ color: colorVariables.blue }} style={{ borderRadius: 5, backgroundColor: colorVariables.light_blue, alignSelf: "center" }} />}
                         />
                     )
                 })

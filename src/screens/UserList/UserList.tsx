@@ -1,10 +1,11 @@
-import { View } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import Components from '../../components';
 import { CustomerListProps } from '../../types';
 import { getUserTypeById } from './UserTypeArray';
 
 interface CustomerListPropsExtends extends CustomerListProps {
-    selectedType: number
+    selectedType: number,
+    containerStyle: ViewStyle
 }
 
 const UserList = (props: CustomerListPropsExtends) => {
@@ -12,7 +13,7 @@ const UserList = (props: CustomerListPropsExtends) => {
 
     let filteredList = list.filter(user => user.role === getUserTypeById(selectedType)?.label)
     return (
-        <View>
+        <View style={props.containerStyle}>
             <Components.AvatarList list={filteredList} />
         </View>
     )
