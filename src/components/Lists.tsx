@@ -61,6 +61,8 @@ const AvatarList = (props: CustomerListPropsExtended) => {
                 data={props.list}
                 renderItem={renderList}
                 keyExtractor={item => item.id}
+                refreshing={false}
+                onRefresh={() => { }}
             />
         </View>
     )

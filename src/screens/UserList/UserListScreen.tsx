@@ -2,14 +2,15 @@ import { View, StyleSheet } from "react-native";
 import Components from "../../components";
 import UserType from "./UserType";
 import UserList from "./UserList";
-import { Divider } from 'react-native-paper';
-import { colorVariables, strings } from "../../utils";
+import { Divider, TextInput } from 'react-native-paper';
+import { colorVariables, strings, searchList } from "../../utils";
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import * as Queries from "../../graphql/listCustomersQuery";
 import { getUserTypeById } from "./UserTypeArray";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../types";
+import { CustomerListProps } from "../../types";
 
 type UserListNavigationProp = StackNavigationProp<RootStackParamList>
 
@@ -19,17 +20,24 @@ type Props = {
 
 const UserListScreen = ({ navigation }: Props) => {
     const [selectedType, changeSelectedType] = useState(0)
-    const [customerList, updateCustomerList] = useState([])
+    const [customerList, updateCustomerList] = useState<CustomerListProps["list"]>([])
+    const [searchQuery, updateSearchQuery] = useState('')
     const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY)
 
     useEffect(() => {
-        console.log("graphqldata", data, error)
+        console.log("graphqldata", customerList)
         if (!loading && data.listZellerCustomers) {
             updateCustomerList(data.listZellerCustomers.items)
         }
     })
 
     useEffect(() => { console.log("selectedType", selectedType) }, [selectedType])
+
+    useEffect(() => {
+        let filteredUsers = searchList(searchQuery, customerList)
+        updateCustomerList(filteredUsers)
+        console.log(filteredUsers)
+    }, [searchQuery])
 
     const onUserClick = () => {
         navigation.navigate("HomeScreen")
@@ -42,6 +50,7 @@ const UserListScreen = ({ navigation }: Props) => {
                 <UserType containerStyle={styles.user_type_view} changeSelectedType={changeSelectedType} />
             </View>
             <Divider style={styles.divider} />
+            <TextInput label="Search" value={searchQuery} onChangeText={text => updateSearchQuery(text)} />
             <View style={styles.user_list}>
                 <Components.Heading1 title={getUserTypeById(selectedType)?.label + " " + strings.Users} />
                 {customerList.length > 0 ? <UserList containerStyle={styles.user_list_view} list={customerList} selectedType={selectedType} onUserClick={onUserClick} /> : null}
