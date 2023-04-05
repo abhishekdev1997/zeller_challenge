@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, FlatList, ListRenderItemInfo, ListRenderItem } from "react-native";
 import Name from "./Name";
 import { RadioButton } from 'react-native-paper';
 import { List, Avatar } from 'react-native-paper';
@@ -8,6 +8,7 @@ import { CustomerListProps, UserTypeProps } from "../types";
 interface UserTypePropsExtended extends UserTypeProps {
     updateSelected: (id: number) => void
 }
+
 
 const RadioButtonList = (props: UserTypePropsExtended) => {
     const { updateSelected } = props
@@ -35,20 +36,27 @@ const RadioButtonList = (props: UserTypePropsExtended) => {
 }
 
 const AvatarList = (props: CustomerListProps) => {
+
+
+    const renderList: ListRenderItem<CustomerListProps["list"][0]> = (item) => {
+        return (
+            <List.Item
+                key={item.item.id}
+                title={props => <Name name={item.item.name} />}
+                description={item.item.role}
+                left={props => <Avatar.Text size={32} label="XD" labelStyle={{ color: colorVariables.blue }} style={{ borderRadius: 5, backgroundColor: colorVariables.light_blue, alignSelf: "center" }} />}
+            />
+        )
+    }
+
+
     return (
         <View>
-            {
-                props.list.map((user) => {
-                    return (
-                        <List.Item
-                            key={user.id}
-                            title={props => <Name name={user.name} />}
-                            description={user.role}
-                            left={props => <Avatar.Text size={32} label="XD" labelStyle={{ color: colorVariables.blue }} style={{ borderRadius: 5, backgroundColor: colorVariables.light_blue, alignSelf: "center" }} />}
-                        />
-                    )
-                })
-            }
+            <FlatList
+                data={props.list}
+                renderItem={renderList}
+                keyExtractor={item => item.id}
+            />
         </View>
     )
 }
