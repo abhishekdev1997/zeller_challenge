@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, memo, SetStateAction, useState } from 'react';
 import { View, ViewStyle } from 'react-native';
 import Components from '../../components';
 import { UserTypeProps } from '../../types';
@@ -10,6 +10,7 @@ type UserTypeMethodProps = {
 }
 
 const UserType = (props: UserTypeMethodProps) => {
+    console.log("usertype")
     const [userType, updateUserType] = useState<UserTypeProps["list"]>(USER_TYPES)
 
     const updateSelected = (id: number) => {
@@ -34,4 +35,4 @@ const UserType = (props: UserTypeMethodProps) => {
     )
 }
 
-export default UserType;
+export default memo(UserType);

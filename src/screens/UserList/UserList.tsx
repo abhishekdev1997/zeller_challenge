@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { View, ViewStyle } from 'react-native';
 import Components from '../../components';
 import { CustomerListProps } from '../../types';
@@ -10,6 +11,7 @@ interface CustomerListPropsExtends extends CustomerListProps {
 }
 
 const UserList = (props: CustomerListPropsExtends) => {
+    console.log("userlist")
     const { list, selectedType, onUserClick } = props;
 
     let filteredList = list.filter(user => user.role === getUserTypeById(selectedType)?.label)
@@ -20,4 +22,4 @@ const UserList = (props: CustomerListPropsExtends) => {
     )
 }
 
-export default UserList;
+export default memo(UserList);

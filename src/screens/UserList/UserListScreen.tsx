@@ -23,22 +23,21 @@ const UserListScreen = ({ navigation }: Props) => {
     const [customerList, updateCustomerList] = useState<CustomerListProps["list"]>([])
     const [skipQuery, toggleSkipQuery] = useState(false)
     const [searchQuery, updateSearchQuery] = useState('')
-    const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY, { skip: skipQuery })
+    const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY)
 
     useEffect(() => {
         if (!loading && data?.listZellerCustomers) {
-            updateCustomerList(data.listZellerCustomers.items)
-            toggleSkipQuery(true)
+            let filteredUsers = searchList(searchQuery, data.listZellerCustomers.items)
+            updateCustomerList(filteredUsers)
+            //toggleSkipQuery(true)
         }
-    }, [data])
+    }, [data, searchQuery])
 
-    useEffect(() => { console.log("selectedType", selectedType) }, [selectedType])
-
-    useEffect(() => {
-        let filteredUsers = searchList(searchQuery, customerList)
-        updateCustomerList(filteredUsers)
-        console.log(filteredUsers)
-    }, [searchQuery])
+    // useEffect(() => {
+    //     let filteredUsers = searchList(searchQuery, customerList)
+    //     updateCustomerList(filteredUsers)
+    //     console.log(filteredUsers)
+    // }, [searchQuery])
 
     const onUserClick = () => {
         navigation.navigate("HomeScreen")
