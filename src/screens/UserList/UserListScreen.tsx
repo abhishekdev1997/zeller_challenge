@@ -21,15 +21,16 @@ type Props = {
 const UserListScreen = ({ navigation }: Props) => {
     const [selectedType, changeSelectedType] = useState(0)
     const [customerList, updateCustomerList] = useState<CustomerListProps["list"]>([])
+    const [skipQuery, toggleSkipQuery] = useState(false)
     const [searchQuery, updateSearchQuery] = useState('')
-    const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY)
+    const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY, { skip: skipQuery })
 
     useEffect(() => {
-        console.log("graphqldata", customerList)
-        if (!loading && data.listZellerCustomers) {
+        if (!loading && data?.listZellerCustomers) {
             updateCustomerList(data.listZellerCustomers.items)
+            toggleSkipQuery(true)
         }
-    })
+    }, [data])
 
     useEffect(() => { console.log("selectedType", selectedType) }, [selectedType])
 
