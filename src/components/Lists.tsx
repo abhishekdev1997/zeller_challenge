@@ -11,7 +11,8 @@ interface UserTypePropsExtended extends UserTypeProps {
 }
 
 interface CustomerListPropsExtended extends CustomerListProps {
-    onItemClick: () => void
+    onItemClick: () => void,
+    pullToRefresh: () => void
 }
 
 
@@ -62,7 +63,7 @@ const AvatarList = (props: CustomerListPropsExtended) => {
                 renderItem={renderList}
                 keyExtractor={item => item.id}
                 refreshing={false}
-                onRefresh={() => { }}
+                onRefresh={() => props.pullToRefresh()}
             />
         </View>
     )
