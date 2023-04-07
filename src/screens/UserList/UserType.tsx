@@ -6,7 +6,9 @@ import { USER_TYPES } from './UserTypeArray';
 
 type UserTypeMethodProps = {
     changeSelectedType: Dispatch<SetStateAction<number>>,
-    containerStyle: ViewStyle
+    containerStyle: ViewStyle,
+    itemTestId: string,
+    testId: string
 }
 
 const UserType = (props: UserTypeMethodProps) => {
@@ -29,8 +31,8 @@ const UserType = (props: UserTypeMethodProps) => {
     }
 
     return (
-        <View style={props.containerStyle}>
-            <Components.RadioButtonList list={userType} updateSelected={updateSelected} />
+        <View testID={props.testId} style={props.containerStyle}>
+            <Components.RadioButtonList itemTestId={props.itemTestId} list={userType} updateSelected={updateSelected} />
         </View>
     )
 }

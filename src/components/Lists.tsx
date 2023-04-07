@@ -7,7 +7,8 @@ import { CustomerListProps, UserTypeProps } from "../types";
 import { getNameInitial } from "../utils";
 
 interface UserTypePropsExtended extends UserTypeProps {
-    updateSelected: (id: number) => void
+    updateSelected: (id: number) => void,
+    itemTestId: string
 }
 
 interface CustomerListPropsExtended extends CustomerListProps {
@@ -17,7 +18,7 @@ interface CustomerListPropsExtended extends CustomerListProps {
 
 
 const RadioButtonList = (props: UserTypePropsExtended) => {
-    const { updateSelected } = props
+    const { updateSelected, itemTestId } = props
     return (
         <View>
             {
@@ -27,6 +28,7 @@ const RadioButtonList = (props: UserTypePropsExtended) => {
                             key={type.id}
                             title={props => <Name name={type.label} />}
                             left={props => <RadioButton
+                                testID={itemTestId + "_" + type.label}
                                 status={type.selected ? "checked" : "unchecked"}
                                 uncheckedColor={colorVariables.grey}
                                 color={colorVariables.blue}

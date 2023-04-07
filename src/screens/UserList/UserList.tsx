@@ -8,7 +8,8 @@ interface CustomerListPropsExtends extends CustomerListProps {
     selectedType: number,
     containerStyle: ViewStyle,
     onUserClick: () => void,
-    pullToRefresh: () => void
+    pullToRefresh: () => void,
+    testId: string
 }
 
 const UserList = (props: CustomerListPropsExtends) => {
@@ -17,7 +18,7 @@ const UserList = (props: CustomerListPropsExtends) => {
 
     let filteredList = list.filter(user => user.role === getUserTypeById(selectedType)?.label)
     return (
-        <View style={props.containerStyle}>
+        <View testID={props.testId} style={props.containerStyle}>
             <Components.AvatarList list={filteredList} onItemClick={onUserClick} pullToRefresh={props.pullToRefresh} />
         </View>
     )

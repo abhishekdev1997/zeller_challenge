@@ -43,15 +43,15 @@ const UserListScreen = ({ navigation }: Props) => {
         <View style={styles.container}>
             <View style={styles.user_type}>
                 <Components.Heading1 title={strings.UserType} />
-                <UserType containerStyle={styles.user_type_view} changeSelectedType={changeSelectedType} />
+                <UserType testId={strings.USER_TYPES_LIST_TEST_ID} itemTestId={strings.USER_TYPE_ITEM_TEST_ID} containerStyle={styles.user_type_view} changeSelectedType={changeSelectedType} />
             </View>
-            <Divider style={styles.divider} />
+            <Divider testID={strings.DIVIDER_TEST_ID} style={styles.divider} />
             <TextInput style={styles.search_box} textColor={colorVariables.grey} activeUnderlineColor={colorVariables.grey} underlineColor={colorVariables.grey} label="Search" value={searchQuery} onChangeText={text => updateSearchQuery(text)} />
             <View style={styles.user_list}>
                 <Components.Heading1 title={getUserTypeById(selectedType)?.label + " " + strings.Users} />
-                {customerList.length > 0 ? <UserList containerStyle={styles.user_list_view} list={customerList} selectedType={selectedType} onUserClick={onUserClick} pullToRefresh={pullToRefresh} /> : null}
+                {customerList.length > 0 ? <UserList testId={"_userList"} containerStyle={styles.user_list_view} list={customerList} selectedType={selectedType} onUserClick={onUserClick} pullToRefresh={pullToRefresh} /> : null}
             </View>
-            <Divider style={styles.divider} />
+            <Divider testID={strings.DIVIDER_TEST_ID} style={styles.divider} />
         </View>)
 }
 
