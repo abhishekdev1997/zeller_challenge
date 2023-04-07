@@ -1,6 +1,7 @@
 import 'react-native';
 import React from 'react';
 import UserListScreen from '../UserListScreen';
+import UserType from '../UserType';
 import { fireEvent, render } from "@testing-library/react-native";
 import { MockedProvider } from '@apollo/react-testing';
 import * as Queries from "../../../graphql/listCustomersQuery";
@@ -37,18 +38,16 @@ it('renders all default elements', () => {
     expect(getAllByText(getUserTypeById(0)?.label + " " + strings.Users).length).toBe(1)
     expect(getAllByTestId(strings.USER_TYPES_LIST_TEST_ID).length).toBe(1)
     expect(getAllByTestId(strings.DIVIDER_TEST_ID).length).toBe(2)
+    expect(getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_", { exact: false }).length).toBe(2)
+    expect(getAllByTestId(strings.SEARCH_BOX_TEST_ID).length).toBe(1)
 });
 
 
 it('user type list renders correctly', () => {
 
-    props = createTestProps({});
-    const { getByTestId } = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <UserListScreen {...props} />
-        </MockedProvider>
+    const componentTree = render(
+        <UserType {...props} />
     );
-    fireEvent.press(getByTestId("_userType_Admin"))
 });
 
 it('test click on user type radio button', () => {

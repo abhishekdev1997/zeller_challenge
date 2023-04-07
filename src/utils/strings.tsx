@@ -6,3 +6,5 @@ export const Users = "Users";
 export const USER_TYPES_LIST_TEST_ID = "_userTypeList";
 export const USER_TYPE_ITEM_TEST_ID = "_userType";
 export const DIVIDER_TEST_ID = "_divider";
+export const USER_LIST_TEST_ID = "_userList";
+export const SEARCH_BOX_TEST_ID = "_searchBox"
