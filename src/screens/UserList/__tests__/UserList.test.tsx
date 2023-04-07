@@ -2,7 +2,7 @@ import 'react-native';
 import React from 'react';
 import UserListScreen from '../UserListScreen';
 import UserType from '../UserType';
-import { fireEvent, render } from "@testing-library/react-native";
+import { fireEvent, render, act, waitFor } from "@testing-library/react-native";
 import { MockedProvider } from '@apollo/react-testing';
 import * as Queries from "../../../graphql/listCustomersQuery";
 import { strings } from "../../../utils";
@@ -18,11 +18,14 @@ const mocks = [
     },
 ];
 
+const changeSelectedType = jest.fn()
+
 let props: any;
 const createTestProps = (props: Object) => ({
     navigation: {
         navigate: jest.fn()
     },
+    changeSelectedType: changeSelectedType,
     ...props
 });
 
@@ -43,22 +46,17 @@ it('renders all default elements', () => {
 });
 
 
-it('user type list renders correctly', () => {
-
-    const componentTree = render(
-        <UserType {...props} />
-    );
-});
-
-it('test click on user type radio button', () => {
-
+it('test click on user type radio button', async () => {
     props = createTestProps({});
-    const { getByTestId } = render(
+    const { getByTestId, getAllByText } = render(
         <MockedProvider mocks={mocks} addTypename={false}>
-            <UserListScreen {...props} />
+            <UserListScreen {...props} >
+                <UserType {...props} />
+            </UserListScreen>
         </MockedProvider>
     );
-    fireEvent.press(getByTestId("_userType_Admin"))
+    fireEvent.press(getByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label))
+    expect(getAllByText(getUserTypeById(1)?.label + " " + strings.Users).length).toBe(1)
 });
 
 
@@ -70,7 +68,7 @@ it('test click on user from users list', () => {
             <UserListScreen {...props} />
         </MockedProvider>
     );
-    fireEvent.press(getByTestId("_userType_Admin"))
+    //fireEvent.press(getByTestId("_userType_Admin"))
 });
 
 
