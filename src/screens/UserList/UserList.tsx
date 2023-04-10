@@ -16,7 +16,8 @@ interface CustomerListPropsExtends extends CustomerListProps {
 const UserList = (props: CustomerListPropsExtends) => {
     const { list, selectedType, onUserClick } = props;
 
-    let filteredList = list.filter(user => user.role === getUserTypeById(selectedType)?.label)
+    let filteredList = list.filter(user => user.role.toLowerCase() === getUserTypeById(selectedType)?.label.toLowerCase())
+
     return (
         <View testID={props.testId} style={props.containerStyle}>
             <Components.AvatarList itemTestId={props.itemTestId} list={filteredList} onItemClick={onUserClick} pullToRefresh={props.pullToRefresh} />
