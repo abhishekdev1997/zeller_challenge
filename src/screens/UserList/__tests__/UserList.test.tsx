@@ -29,123 +29,149 @@ const list = [{
     role: "Admin"
 },
 {
-    id: "2",
+    id: "3",
     name: "Zeller2",
     email: "Zeller2@gmail.com",
     role: "Admin"
 }]
 
 
-const mocks = [
-    {
-        request: {
-            query: Queries.ZELLER_LIST_CUSTOMER_QUERY
-        },
-        result: {
-            data: {
-                listZellerCustomers: {
-                    items: list
+
+describe("testing UserListScreen component functionality", () => {
+    const mocks = [
+        {
+            request: {
+                query: Queries.ZELLER_LIST_CUSTOMER_QUERY
+            },
+            result: {
+                data: {
+                    listZellerCustomers: {
+                        items: list
+                    }
                 }
             }
-        }
-    },
-];
+        },
+    ];
 
-const changeSelectedType = jest.fn()
+    const changeSelectedType = jest.fn()
 
-let props: any;
-const navigate = jest.fn()
-const createTestProps = (props: Object) => ({
-    navigation: {
-        navigate: navigate
-    },
-    changeSelectedType: changeSelectedType,
-    ...props
-});
-
-it('renders all default elements', () => {
-
-    props = createTestProps({});
-    const { getAllByText, getAllByTestId } = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <UserListScreen {...props} />
-        </MockedProvider>
-    );
-    expect(getAllByText(strings.UserType).length).toBe(1)
-    expect(getAllByText(getUserTypeById(0)?.label + " " + strings.Users).length).toBe(1)
-    expect(getAllByTestId(strings.USER_TYPES_LIST_TEST_ID).length).toBe(1)
-    expect(getAllByTestId(strings.DIVIDER_TEST_ID).length).toBe(2)
-    expect(getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_", { exact: false }).length).toBe(2)
-    expect(getAllByTestId(strings.SEARCH_BOX_TEST_ID).length).toBe(1)
-});
+    let props: any;
+    const navigate = jest.fn()
+    const createTestProps = (props: Object) => ({
+        navigation: {
+            navigate: navigate
+        },
+        changeSelectedType: changeSelectedType,
+        ...props
+    });
 
 
-it('test click on user type radio button', async () => {
-    props = createTestProps({});
-    const { getByTestId, getAllByText, getAllByTestId } = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <UserListScreen {...props} >
-                <UserType {...props} />
-            </UserListScreen>
-        </MockedProvider>
-    );
-    fireEvent.press(getByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label))
-    expect(getAllByText(getUserTypeById(1)?.label + " " + strings.Users).length).toBe(1)
+    it('renders all default elements', () => {
+        props = createTestProps({});
+        const { getAllByText, getAllByTestId } = render(
+            <MockedProvider mocks={mocks} addTypename={false}>
+                <UserListScreen {...props} />
+            </MockedProvider>
+        );
+        expect(getAllByText(strings.UserType).length).toBe(1)
+        expect(getAllByText(getUserTypeById(0)?.label + " " + strings.Users).length).toBe(1)
+        expect(getAllByTestId(strings.USER_TYPES_LIST_TEST_ID).length).toBe(1)
+        expect(getAllByTestId(strings.DIVIDER_TEST_ID).length).toBe(2)
+        expect(getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_", { exact: false }).length).toBe(2)
+        expect(getAllByTestId(strings.SEARCH_BOX_TEST_ID).length).toBe(1)
+    });
 
-    await act(async () => {
-        await waitFor(() => {
-            expect(getAllByTestId(strings.USER_LIST_ITEM_ID + "_Zeller").length).toBeGreaterThan(0)
+
+    it('test click on user type radio button', async () => {
+        props = createTestProps({});
+        const { getByTestId, getAllByText, getAllByTestId } = render(
+            <MockedProvider mocks={mocks} addTypename={false}>
+                <UserListScreen {...props} >
+                    <UserType {...props} />
+                </UserListScreen>
+            </MockedProvider>
+        );
+        fireEvent.press(getByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label))
+        expect(getAllByText(getUserTypeById(1)?.label + " " + strings.Users).length).toBe(1)
+
+        await act(async () => {
+            await waitFor(() => {
+                expect(getAllByTestId(strings.USER_LIST_ITEM_ID + "_Zeller").length).toBeGreaterThan(0)
+            })
         })
-    })
-});
+    });
 
 
-it('test search box', async () => {
-    props = createTestProps({});
-    const { getByTestId, getAllByTestId } = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <UserListScreen {...props} >
-                <UserType {...props} />
-            </UserListScreen>
-        </MockedProvider>
-    );
+    it('test search box', async () => {
+        props = createTestProps({});
+        const { getByTestId, getAllByTestId } = render(
+            <MockedProvider mocks={mocks} addTypename={false}>
+                <UserListScreen {...props} >
+                    <UserType {...props} />
+                </UserListScreen>
+            </MockedProvider>
+        );
 
 
-    await act(async () => {
-        await waitFor(() => {
-            fireEvent(getByTestId(strings.SEARCH_BOX_TEST_ID), "onChangeText", "Abhishek2")
-            expect(getAllByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek2").length).toEqual(1)
+        await act(async () => {
+            await waitFor(() => {
+                fireEvent(getByTestId(strings.SEARCH_BOX_TEST_ID), "onChangeText", "Abhishek2")
+                expect(getAllByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek2").length).toEqual(1)
+            })
         })
-    })
-});
+    });
 
 
-it('test navigation on click on user from users list', async () => {
-    props = createTestProps({});
-    const { getByTestId } = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <UserListScreen {...props} >
-                <UserType {...props} />
-            </UserListScreen>
-        </MockedProvider>
-    );
+    it('test navigation on click on user from users list', async () => {
+        props = createTestProps({});
+        const { getByTestId } = render(
+            <MockedProvider mocks={mocks} addTypename={false}>
+                <UserListScreen {...props} >
+                    <UserType {...props} />
+                </UserListScreen>
+            </MockedProvider>
+        );
 
 
-    await act(async () => {
-        await waitFor(() => {
-            fireEvent.press(getByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek"))
-            expect(navigate).toBeCalledWith("HomeScreen")
+        await act(async () => {
+            await waitFor(() => {
+                fireEvent.press(getByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek"))
+                expect(navigate).toBeCalledWith("HomeScreen")
+            })
         })
-    })
-});
+    });
+})
 
 
-test('test click on user from users list', () => {
-    props = createTestProps({});
-    const onUserClick = jest.fn()
-    const { getByTestId } = render(
-        <UserList {...props} onUserClick={onUserClick} list={list} selectedType={0} itemTestId={strings.USER_LIST_ITEM_ID} />
-    );
-    fireEvent.press(getByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek"))
-    expect(onUserClick).toBeCalled()
-});
+describe("testing individual component", () => {
+
+    const createTestProps = (props: Object) => ({
+        navigation: {
+            navigate: jest.fn()
+        },
+        ...props
+    });
+    let props: any;
+
+    test('test length and click on user type list', () => {
+        props = createTestProps({});
+        const changeSelectedType = jest.fn()
+        const { getByTestId, getAllByTestId } = render(
+            <UserType testId={strings.USER_TYPES_LIST_TEST_ID} itemTestId={strings.USER_TYPE_ITEM_TEST_ID} {...props} changeSelectedType={changeSelectedType} />
+        );
+        let receivedItem = getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(0)?.label).length + getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label).length
+        expect(receivedItem).toEqual(2)
+    });
+
+    test('test length and click on user from users list', () => {
+        props = createTestProps({});
+        const onUserClick = jest.fn()
+        const { getByTestId, getAllByTestId } = render(
+            <UserList {...props} onUserClick={onUserClick} list={list} selectedType={0} itemTestId={strings.USER_LIST_ITEM_ID} />
+        );
+        expect(getAllByTestId(strings.USER_LIST_ITEM_ID, { exact: false }).length).toEqual(2)
+        fireEvent.press(getByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek"))
+        expect(onUserClick).toBeCalled()
+    });
+
+})
