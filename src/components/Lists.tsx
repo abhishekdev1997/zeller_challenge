@@ -13,7 +13,8 @@ interface UserTypePropsExtended extends UserTypeProps {
 
 interface CustomerListPropsExtended extends CustomerListProps {
     onItemClick: () => void,
-    pullToRefresh: () => void
+    pullToRefresh: () => void,
+    itemTestId: string
 }
 
 
@@ -48,6 +49,7 @@ const AvatarList = (props: CustomerListPropsExtended) => {
     const renderList: ListRenderItem<CustomerListProps["list"][0]> = (item) => {
         return (
             <List.Item
+                testID={props.itemTestId + "_" + item.item.name}
                 key={item.item.id}
                 title={props => <Name name={item.item.name} />}
                 description={item.item.role}

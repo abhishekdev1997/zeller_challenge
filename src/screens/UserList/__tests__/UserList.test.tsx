@@ -1,14 +1,24 @@
 import 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import UserListScreen from '../UserListScreen';
 import UserType from '../UserType';
-import { fireEvent, render, act, waitFor } from "@testing-library/react-native";
+import UserList from '../UserList';
+import { fireEvent, render, act, waitFor, renderHook } from "@testing-library/react-native";
 import { MockedProvider } from '@apollo/react-testing';
 import * as Queries from "../../../graphql/listCustomersQuery";
 import { strings } from "../../../utils";
 import { getUserTypeById, USER_TYPES } from '../UserTypeArray';
+import { CustomerListProps } from '../../../types';
+import renderer from 'react-test-renderer';
 
 jest.useFakeTimers()
+let list = [{
+    id: "1",
+    name: "Abhishek",
+    email: "abhishek@gmail.com",
+    role: "Manager"
+}]
+
 
 const mocks = [
     {
@@ -60,15 +70,12 @@ it('test click on user type radio button', async () => {
 });
 
 
-it('test click on user from users list', () => {
-
+test('test click on user from users list', () => {
     props = createTestProps({});
-    const { getByTestId } = render(
-        <MockedProvider mocks={mocks} addTypename={false}>
-            <UserListScreen {...props} />
-        </MockedProvider>
+    const onUserClick = jest.fn()
+    const { getByTestId, getAllByText, getAllByTestId } = render(
+        <UserList {...props} onUserClick={onUserClick} list={list} selectedType={0} itemTestId={strings.USER_LIST_ITEM_ID} />
     );
-    //fireEvent.press(getByTestId("_userType_Admin"))
+    fireEvent.press(getByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek"))
+    expect(onUserClick).toBeCalled()
 });
-
-

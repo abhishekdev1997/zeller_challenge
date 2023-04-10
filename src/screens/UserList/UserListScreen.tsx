@@ -49,7 +49,7 @@ const UserListScreen = ({ navigation }: Props) => {
             <TextInput testID={strings.SEARCH_BOX_TEST_ID} style={styles.search_box} textColor={colorVariables.grey} activeUnderlineColor={colorVariables.grey} underlineColor={colorVariables.grey} label="Search" value={searchQuery} onChangeText={text => updateSearchQuery(text)} />
             <View style={styles.user_list}>
                 <Components.Heading1 title={getUserTypeById(selectedType)?.label + " " + strings.Users} />
-                {customerList.length > 0 ? <UserList testId={strings.USER_LIST_TEST_ID} containerStyle={styles.user_list_view} list={customerList} selectedType={selectedType} onUserClick={onUserClick} pullToRefresh={pullToRefresh} /> : null}
+                {customerList.length > 0 ? <UserList itemTestId={strings.USER_LIST_ITEM_ID} testId={strings.USER_LIST_TEST_ID} containerStyle={styles.user_list_view} list={customerList} selectedType={selectedType} onUserClick={onUserClick} pullToRefresh={pullToRefresh} /> : null}
             </View>
             <Divider testID={strings.DIVIDER_TEST_ID} style={styles.divider} />
         </View>)
