@@ -8,6 +8,7 @@ import { MockedProvider } from '@apollo/react-testing';
 import * as Queries from "../../../graphql/listCustomersQuery";
 import { strings } from "../../../utils";
 import { getUserTypeById } from '../UserTypeArray';
+import renderer from "react-test-renderer";
 
 jest.useFakeTimers()
 const list = [{
@@ -35,36 +36,36 @@ const list = [{
     role: "Admin"
 }]
 
+const mocks = [
+    {
+        request: {
+            query: Queries.ZELLER_LIST_CUSTOMER_QUERY
+        },
+        result: {
+            data: {
+                listZellerCustomers: {
+                    items: list
+                }
+            }
+        }
+    },
+];
+
+const changeSelectedType = jest.fn()
+
+let props: any;
+const navigate = jest.fn()
+const createTestProps = (props: Object) => ({
+    navigation: {
+        navigate: navigate
+    },
+    changeSelectedType: changeSelectedType,
+    ...props
+});
+
 
 
 describe("testing UserListScreen component functionality", () => {
-    const mocks = [
-        {
-            request: {
-                query: Queries.ZELLER_LIST_CUSTOMER_QUERY
-            },
-            result: {
-                data: {
-                    listZellerCustomers: {
-                        items: list
-                    }
-                }
-            }
-        },
-    ];
-
-    const changeSelectedType = jest.fn()
-
-    let props: any;
-    const navigate = jest.fn()
-    const createTestProps = (props: Object) => ({
-        navigation: {
-            navigate: navigate
-        },
-        changeSelectedType: changeSelectedType,
-        ...props
-    });
-
 
     it('renders all default elements', () => {
         props = createTestProps({});
@@ -145,23 +146,16 @@ describe("testing UserListScreen component functionality", () => {
 
 describe("testing individual component", () => {
 
-    const createTestProps = (props: Object) => ({
-        navigation: {
-            navigate: jest.fn()
-        },
-        ...props
-    });
-    let props: any;
-
     test('test length and click on user type list', () => {
         props = createTestProps({});
         const changeSelectedType = jest.fn()
-        const { getByTestId, getAllByTestId } = render(
+        const { getAllByTestId } = render(
             <UserType testId={strings.USER_TYPES_LIST_TEST_ID} itemTestId={strings.USER_TYPE_ITEM_TEST_ID} {...props} changeSelectedType={changeSelectedType} />
         );
         let receivedItem = getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(0)?.label).length + getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label).length
         expect(receivedItem).toEqual(2)
     });
+
 
     test('test length and click on user from users list', () => {
         props = createTestProps({});
@@ -174,4 +168,27 @@ describe("testing individual component", () => {
         expect(onUserClick).toBeCalled()
     });
 
+})
+
+describe("snapshot testing", () => {
+
+    test("UserListScreen renders correctly", () => {
+        props = createTestProps({})
+        const tree = renderer.create(<MockedProvider mocks={mocks} addTypename={false}>
+            <UserListScreen {...props} >
+                <UserType {...props} />
+            </UserListScreen>
+        </MockedProvider>).toJSON();
+        expect(tree).toMatchSnapshot();
+    })
+
+    test("UserType component renders correctly", () => {
+        const tree = renderer.create(<UserType testId={strings.USER_TYPES_LIST_TEST_ID} itemTestId={strings.USER_TYPE_ITEM_TEST_ID} {...props} changeSelectedType={changeSelectedType} />).toJSON();
+        expect(tree).toMatchSnapshot();
+    })
+
+    test("UserList component renders correctly", () => {
+        const tree = renderer.create(<UserList {...props} list={list} selectedType={0} itemTestId={strings.USER_LIST_ITEM_ID} />).toJSON();
+        expect(tree).toMatchSnapshot();
+    })
 })
