@@ -149,11 +149,13 @@ describe("testing individual component", () => {
     test('test length and click on user type list', () => {
         props = createTestProps({});
         const changeSelectedType = jest.fn()
-        const { getAllByTestId } = render(
+        const { getAllByTestId, getByTestId } = render(
             <UserType testId={strings.USER_TYPES_LIST_TEST_ID} itemTestId={strings.USER_TYPE_ITEM_TEST_ID} {...props} changeSelectedType={changeSelectedType} />
         );
         let receivedItem = getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(0)?.label).length + getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label).length
         expect(receivedItem).toEqual(2)
+        fireEvent.press(getByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label))
+        expect(changeSelectedType).toBeCalledWith(1)
     });
 
 
