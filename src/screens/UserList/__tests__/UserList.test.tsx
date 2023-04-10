@@ -194,3 +194,25 @@ describe("snapshot testing", () => {
         expect(tree).toMatchSnapshot();
     })
 })
+
+describe("testing functions", () => {
+    test("getUserTypeById for value 0", () => {
+        const output = getUserTypeById(0)
+        expect(output).toStrictEqual({
+            id: 0,
+            type: "manager",
+            label: "Manager",
+            selected: false
+        })
+    })
+
+    test("getUserTypeById for value 1", () => {
+        const output = getUserTypeById(1)
+        expect(output).toStrictEqual({
+            id: 1,
+            type: "admin",
+            label: "Admin",
+            selected: true
+        })
+    })
+})
