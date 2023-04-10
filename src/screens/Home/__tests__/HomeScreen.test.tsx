@@ -5,7 +5,7 @@ import { render } from "@testing-library/react-native";
 jest.useFakeTimers()
 
 
-it('homescreen renders correctly', () => {
+test('homescreen renders correctly', () => {
     render(
         <HomeScreen />
     );

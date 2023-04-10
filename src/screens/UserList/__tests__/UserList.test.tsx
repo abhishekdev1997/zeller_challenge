@@ -67,7 +67,7 @@ const createTestProps = (props: Object) => ({
 
 describe("testing UserListScreen component functionality", () => {
 
-    it('renders all default elements', () => {
+    test('renders all default elements', () => {
         props = createTestProps({});
         const { getAllByText, getAllByTestId } = render(
             <MockedProvider mocks={mocks} addTypename={false}>
@@ -83,7 +83,7 @@ describe("testing UserListScreen component functionality", () => {
     });
 
 
-    it('test click on user type radio button', async () => {
+    test('test click on user type radio button', async () => {
         props = createTestProps({});
         const { getByTestId, getAllByText, getAllByTestId } = render(
             <MockedProvider mocks={mocks} addTypename={false}>
@@ -103,7 +103,7 @@ describe("testing UserListScreen component functionality", () => {
     });
 
 
-    it('test search box', async () => {
+    test('test search box', async () => {
         props = createTestProps({});
         const { getByTestId, getAllByTestId } = render(
             <MockedProvider mocks={mocks} addTypename={false}>
@@ -123,7 +123,7 @@ describe("testing UserListScreen component functionality", () => {
     });
 
 
-    it('test navigation on click on user from users list', async () => {
+    test('test navigation on click on user from users list', async () => {
         props = createTestProps({});
         const { getByTestId } = render(
             <MockedProvider mocks={mocks} addTypename={false}>
