@@ -12,7 +12,6 @@ type UserTypeMethodProps = {
 }
 
 const UserType = (props: UserTypeMethodProps) => {
-    console.log("usertype")
     const [userType, updateUserType] = useState<UserTypeProps["list"]>(USER_TYPES)
 
     const updateSelected = (id: number) => {
