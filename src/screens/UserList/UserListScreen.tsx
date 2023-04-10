@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 import Components from "../../components";
 import UserType from "./UserType";
 import UserList from "./UserList";
-import { Divider, TextInput } from 'react-native-paper';
+import { Divider, TextInput, ActivityIndicator, Snackbar } from 'react-native-paper';
 import { colorVariables, strings, searchList } from "../../utils";
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
@@ -23,6 +23,7 @@ const UserListScreen = ({ navigation }: Props) => {
     const [customerList, updateCustomerList] = useState<CustomerListProps["list"]>([])
     const [searchQuery, updateSearchQuery] = useState('')
     const { data, loading, error } = useQuery(Queries.ZELLER_LIST_CUSTOMER_QUERY)
+    const [snackBarVisible, setSnackBarVisible] = useState(false)
 
     useEffect(() => {
         if (!loading && data?.listZellerCustomers) {
@@ -31,12 +32,35 @@ const UserListScreen = ({ navigation }: Props) => {
         }
     }, [data, searchQuery])
 
+    useEffect(() => {
+        if (error) {
+            setSnackBarVisible(true)
+        }
+    }, [error])
+
     const onUserClick = () => {
         navigation.navigate("HomeScreen")
     }
 
     const pullToRefresh = () => {
         updateSearchQuery('')
+    }
+
+    if (loading) {
+        return (
+            <ActivityIndicator style={{ justifyContent: "center", alignItems: "center", flex: 1 }} animating={true} color={colorVariables.blue} />
+        )
+    }
+
+    if (error) {
+        return (
+            <Snackbar
+                visible={snackBarVisible}
+                onDismiss={() => setSnackBarVisible(false)}
+            >
+                {error.message}
+            </Snackbar>
+        )
     }
 
     return (
