@@ -3,7 +3,7 @@ import React from 'react';
 import UserListScreen from '../UserListScreen';
 import UserType from '../UserType';
 import UserList from '../UserList';
-import { fireEvent, render, act, waitFor } from "@testing-library/react-native";
+import { fireEvent, render, act, waitFor, cleanup } from "@testing-library/react-native";
 import { MockedProvider } from '@apollo/react-testing';
 import * as Queries from "../../../graphql/listCustomersQuery";
 import { strings } from "../../../utils";
@@ -66,6 +66,10 @@ const createTestProps = (props: Object) => ({
 
 
 describe("testing UserListScreen component functionality", () => {
+
+    afterEach(() => {
+        cleanup();
+    });
 
     test('renders all default elements', () => {
         props = createTestProps({});
@@ -145,6 +149,10 @@ describe("testing UserListScreen component functionality", () => {
 
 
 describe("testing individual component", () => {
+
+    afterEach(() => {
+        cleanup();
+    });
 
     test('test length and click on user type list', () => {
         props = createTestProps({});
