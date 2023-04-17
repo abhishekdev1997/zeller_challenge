@@ -48,7 +48,7 @@ const UserListScreen = ({ navigation }: Props) => {
 
     if (loading) {
         return (
-            <ActivityIndicator style={{ justifyContent: "center", alignItems: "center", flex: 1 }} animating={true} color={colorVariables.blue} />
+            <ActivityIndicator testID={strings.LOADER_TEST_ID} style={{ justifyContent: "center", alignItems: "center", flex: 1 }} animating={true} color={colorVariables.blue} />
         )
     }
 

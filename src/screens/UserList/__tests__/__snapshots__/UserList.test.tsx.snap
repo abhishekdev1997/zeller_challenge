@@ -1107,6 +1107,440 @@ exports[`snapshot testing UserListScreen renders correctly 1`] = `
     >
       Manager Users
     </Text>
+    <View
+      style={
+        {
+          "marginTop": "4%",
+        }
+      }
+      testID="_userList"
+    >
+      <View>
+        <RCTScrollView
+          data={
+            [
+              {
+                "email": "abhishek@gmail.com",
+                "id": "1",
+                "name": "Abhishek",
+                "role": "Manager",
+              },
+              {
+                "email": "abhishek2@gmail.com",
+                "id": "4",
+                "name": "Abhishek2",
+                "role": "Manager",
+              },
+            ]
+          }
+          getItem={[Function]}
+          getItemCount={[Function]}
+          keyExtractor={[Function]}
+          onContentSizeChange={[Function]}
+          onLayout={[Function]}
+          onMomentumScrollBegin={[Function]}
+          onMomentumScrollEnd={[Function]}
+          onRefresh={[Function]}
+          onScroll={[Function]}
+          onScrollBeginDrag={[Function]}
+          onScrollEndDrag={[Function]}
+          refreshControl={
+            <RefreshControlMock
+              onRefresh={[Function]}
+              refreshing={false}
+            />
+          }
+          refreshing={false}
+          removeClippedSubviews={false}
+          renderItem={[Function]}
+          scrollEventThrottle={50}
+          stickyHeaderIndices={[]}
+          viewabilityConfigCallbackPairs={[]}
+        >
+          <RCTRefreshControl />
+          <View>
+            <View
+              onFocusCapture={[Function]}
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    false,
+                    false,
+                    [
+                      {
+                        "paddingRight": 24,
+                        "paddingVertical": 8,
+                      },
+                      undefined,
+                    ],
+                  ]
+                }
+                testID="_userListItem_Abhishek"
+              >
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "marginVertical": 6,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      [
+                        {
+                          "backgroundColor": "#E8f2FB",
+                          "borderRadius": 16,
+                          "height": 32,
+                          "width": 32,
+                        },
+                        {
+                          "alignItems": "center",
+                          "justifyContent": "center",
+                        },
+                        {
+                          "alignSelf": "center",
+                          "borderRadius": 5,
+                        },
+                      ]
+                    }
+                  >
+                    <Text
+                      numberOfLines={1}
+                      style={
+                        [
+                          {
+                            "textAlign": "left",
+                          },
+                          {
+                            "color": "rgba(28, 27, 31, 1)",
+                            "fontFamily": "System",
+                            "fontWeight": "400",
+                            "letterSpacing": 0,
+                          },
+                          {
+                            "writingDirection": "ltr",
+                          },
+                          [
+                            {
+                              "textAlign": "center",
+                              "textAlignVertical": "center",
+                            },
+                            {
+                              "color": "rgba(0, 0, 0, .54)",
+                              "fontSize": 16,
+                              "lineHeight": 16,
+                            },
+                            {
+                              "color": "#0370CE",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      A
+                    </Text>
+                  </View>
+                  <View
+                    style={
+                      [
+                        {
+                          "paddingLeft": 16,
+                        },
+                        {
+                          "flex": 1,
+                          "justifyContent": "center",
+                        },
+                      ]
+                    }
+                  >
+                    <Text
+                      style={
+                        [
+                          {
+                            "fontFamily": "System",
+                            "fontSize": 22,
+                            "fontWeight": "400",
+                            "letterSpacing": 0,
+                            "lineHeight": 28,
+                          },
+                          {
+                            "textAlign": "left",
+                          },
+                          {
+                            "color": "rgba(28, 27, 31, 1)",
+                            "writingDirection": "ltr",
+                          },
+                          {
+                            "color": "#454545",
+                            "fontSize": 20,
+                          },
+                        ]
+                      }
+                    >
+                      Abhishek
+                    </Text>
+                    <Text
+                      numberOfLines={2}
+                      onTextLayout={[Function]}
+                      selectable={false}
+                      style={
+                        [
+                          {
+                            "textAlign": "left",
+                          },
+                          {
+                            "color": "rgba(28, 27, 31, 1)",
+                            "fontFamily": "System",
+                            "fontWeight": "400",
+                            "letterSpacing": 0,
+                          },
+                          {
+                            "writingDirection": "ltr",
+                          },
+                          [
+                            {
+                              "fontSize": 14,
+                            },
+                            {
+                              "color": "rgba(73, 69, 79, 1)",
+                            },
+                            undefined,
+                          ],
+                        ]
+                      }
+                    >
+                      Manager
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View
+              onFocusCapture={[Function]}
+              onLayout={[Function]}
+              style={null}
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    false,
+                    false,
+                    [
+                      {
+                        "paddingRight": 24,
+                        "paddingVertical": 8,
+                      },
+                      undefined,
+                    ],
+                  ]
+                }
+                testID="_userListItem_Abhishek2"
+              >
+                <View
+                  style={
+                    {
+                      "flexDirection": "row",
+                      "marginVertical": 6,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      [
+                        {
+                          "backgroundColor": "#E8f2FB",
+                          "borderRadius": 16,
+                          "height": 32,
+                          "width": 32,
+                        },
+                        {
+                          "alignItems": "center",
+                          "justifyContent": "center",
+                        },
+                        {
+                          "alignSelf": "center",
+                          "borderRadius": 5,
+                        },
+                      ]
+                    }
+                  >
+                    <Text
+                      numberOfLines={1}
+                      style={
+                        [
+                          {
+                            "textAlign": "left",
+                          },
+                          {
+                            "color": "rgba(28, 27, 31, 1)",
+                            "fontFamily": "System",
+                            "fontWeight": "400",
+                            "letterSpacing": 0,
+                          },
+                          {
+                            "writingDirection": "ltr",
+                          },
+                          [
+                            {
+                              "textAlign": "center",
+                              "textAlignVertical": "center",
+                            },
+                            {
+                              "color": "rgba(0, 0, 0, .54)",
+                              "fontSize": 16,
+                              "lineHeight": 16,
+                            },
+                            {
+                              "color": "#0370CE",
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      A
+                    </Text>
+                  </View>
+                  <View
+                    style={
+                      [
+                        {
+                          "paddingLeft": 16,
+                        },
+                        {
+                          "flex": 1,
+                          "justifyContent": "center",
+                        },
+                      ]
+                    }
+                  >
+                    <Text
+                      style={
+                        [
+                          {
+                            "fontFamily": "System",
+                            "fontSize": 22,
+                            "fontWeight": "400",
+                            "letterSpacing": 0,
+                            "lineHeight": 28,
+                          },
+                          {
+                            "textAlign": "left",
+                          },
+                          {
+                            "color": "rgba(28, 27, 31, 1)",
+                            "writingDirection": "ltr",
+                          },
+                          {
+                            "color": "#454545",
+                            "fontSize": 20,
+                          },
+                        ]
+                      }
+                    >
+                      Abhishek2
+                    </Text>
+                    <Text
+                      numberOfLines={2}
+                      onTextLayout={[Function]}
+                      selectable={false}
+                      style={
+                        [
+                          {
+                            "textAlign": "left",
+                          },
+                          {
+                            "color": "rgba(28, 27, 31, 1)",
+                            "fontFamily": "System",
+                            "fontWeight": "400",
+                            "letterSpacing": 0,
+                          },
+                          {
+                            "writingDirection": "ltr",
+                          },
+                          [
+                            {
+                              "fontSize": 14,
+                            },
+                            {
+                              "color": "rgba(73, 69, 79, 1)",
+                            },
+                            undefined,
+                          ],
+                        ]
+                      }
+                    >
+                      Manager
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+    </View>
   </View>
   <View
     style={

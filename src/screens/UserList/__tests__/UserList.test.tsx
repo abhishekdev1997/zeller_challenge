@@ -71,19 +71,21 @@ describe("testing UserListScreen component functionality", () => {
         cleanup();
     });
 
-    test('renders all default elements', () => {
+    test('renders all default elements', async () => {
         props = createTestProps({});
         const { getAllByText, getAllByTestId } = render(
             <MockedProvider mocks={mocks} addTypename={false}>
                 <UserListScreen {...props} />
             </MockedProvider>
         );
-        expect(getAllByText(strings.UserType).length).toBe(1)
-        expect(getAllByText(getUserTypeById(0)?.label + " " + strings.Users).length).toBe(1)
-        expect(getAllByTestId(strings.USER_TYPES_LIST_TEST_ID).length).toBe(1)
-        expect(getAllByTestId(strings.DIVIDER_TEST_ID).length).toBe(2)
-        expect(getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_", { exact: false }).length).toBe(2)
-        expect(getAllByTestId(strings.SEARCH_BOX_TEST_ID).length).toBe(1)
+        await waitFor(() => {
+            expect(getAllByText(strings.UserType).length).toBe(1)
+            expect(getAllByText(getUserTypeById(0)?.label + " " + strings.Users).length).toBe(1)
+            expect(getAllByTestId(strings.USER_TYPES_LIST_TEST_ID).length).toBe(1)
+            expect(getAllByTestId(strings.DIVIDER_TEST_ID).length).toBe(2)
+            expect(getAllByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_", { exact: false }).length).toBe(2)
+            expect(getAllByTestId(strings.SEARCH_BOX_TEST_ID).length).toBe(1)
+        })
     });
 
 
@@ -96,12 +98,15 @@ describe("testing UserListScreen component functionality", () => {
                 </UserListScreen>
             </MockedProvider>
         );
-        fireEvent.press(getByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label))
-        expect(getAllByText(getUserTypeById(1)?.label + " " + strings.Users).length).toBe(1)
 
-        await act(async () => {
-            await waitFor(() => {
-                expect(getAllByTestId(strings.USER_LIST_ITEM_ID + "_Zeller").length).toBeGreaterThan(0)
+        await waitFor(async () => {
+            fireEvent.press(getByTestId(strings.USER_TYPE_ITEM_TEST_ID + "_" + getUserTypeById(1)?.label))
+            expect(getAllByText(getUserTypeById(1)?.label + " " + strings.Users).length).toBe(1)
+
+            await act(async () => {
+                await waitFor(() => {
+                    expect(getAllByTestId(strings.USER_LIST_ITEM_ID + "_Zeller").length).toBeGreaterThan(0)
+                })
             })
         })
     });
@@ -129,7 +134,7 @@ describe("testing UserListScreen component functionality", () => {
 
     test('test navigation on click on user from users list', async () => {
         props = createTestProps({});
-        const { getByTestId } = render(
+        const { getByTestId, queryByTestId } = render(
             <MockedProvider mocks={mocks} addTypename={false}>
                 <UserListScreen {...props} >
                     <UserType {...props} />
@@ -137,11 +142,13 @@ describe("testing UserListScreen component functionality", () => {
             </MockedProvider>
         );
 
-
-        await act(async () => {
-            await waitFor(() => {
-                fireEvent.press(getByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek"))
-                expect(navigate).toBeCalledWith("HomeScreen")
+        await waitFor(async () => {
+            expect(queryByTestId(strings.LOADER_TEST_ID)).toBeNull()
+            await act(async () => {
+                await waitFor(() => {
+                    fireEvent.press(getByTestId(strings.USER_LIST_ITEM_ID + "_Abhishek"))
+                    expect(navigate).toBeCalledWith("HomeScreen")
+                })
             })
         })
     });
@@ -182,14 +189,17 @@ describe("testing individual component", () => {
 
 describe("snapshot testing", () => {
 
-    test("UserListScreen renders correctly", () => {
+    test("UserListScreen renders correctly", async () => {
         props = createTestProps({})
-        const tree = renderer.create(<MockedProvider mocks={mocks} addTypename={false}>
+        const { queryByTestId, toJSON } = render(<MockedProvider mocks={mocks} addTypename={false}>
             <UserListScreen {...props} >
                 <UserType {...props} />
             </UserListScreen>
-        </MockedProvider>).toJSON();
-        expect(tree).toMatchSnapshot();
+        </MockedProvider>)
+        await waitFor(() => {
+            expect(queryByTestId(strings.LOADER_TEST_ID)).toBeNull()
+            expect(toJSON()).toMatchSnapshot();
+        })
     })
 
     test("UserType component renders correctly", () => {
